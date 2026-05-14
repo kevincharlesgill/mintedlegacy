@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Blog — MintedLegacy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  @import url('https://fonts.cdnfonts.com/css/didot');
+  :root{--white:#ffffff;--off-white:#f8f9fb;--darker:#0d1117;--dark:#1c2333;--slate:#4a5568;--silver:#b8c0d0;--silver-mid:#8592aa;--accent:#708090;--border:rgba(0,0,0,0.07);--border-md:rgba(0,0,0,0.11);--shadow-xs:0 1px 6px rgba(0,0,0,0.05);--shadow-sm:0 2px 16px rgba(0,0,0,0.07);}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--white);color:var(--dark);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;font-weight:400;}
+  nav{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 60px;background:rgba(255,255,255,0.97);border-bottom:1px solid var(--border);box-shadow:var(--shadow-xs);}
+  .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+  .logo-mark{width:34px;height:34px;background:var(--darker);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;font-size:17px;color:var(--white);}
+  .logo-text{font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;font-size:20px;color:var(--darker);}
+  .logo-text em{font-style:italic;color:var(--accent);}
+  .nav-back{font-size:13px;color:var(--slate);text-decoration:none;font-weight:500;transition:color 0.2s;}
+  .nav-back:hover{color:var(--accent);}
+  .hero{background:var(--off-white);border-bottom:1px solid var(--border);padding:72px 60px 60px;}
+  .hero-inner{max-width:1100px;margin:0 auto;}
+  .section-label{font-size:10.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .section-label::before{content:'';width:22px;height:1.5px;background:var(--accent);border-radius:2px;}
+  .hero h1{font-size:clamp(36px,5vw,58px);color:var(--darker);margin-bottom:14px;}
+  .hero p{font-size:15px;color:var(--silver-mid);font-weight:300;max-width:540px;}
+  .content{max-width:1100px;margin:0 auto;padding:72px 60px 100px;}
+  .coming-soon{text-align:center;padding:80px 40px;border:1px solid var(--border-md);border-radius:14px;background:var(--off-white);}
+  .coming-soon .icon{font-size:52px;margin-bottom:24px;display:block;}
+  .coming-soon h2{font-size:36px;color:var(--darker);margin-bottom:14px;}
+  .coming-soon p{font-size:15px;color:var(--slate);font-weight:300;line-height:1.75;max-width:480px;margin:0 auto 36px;}
+  .email-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .email-form input{padding:13px 18px;border:1px solid var(--border-md);border-radius:6px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--dark);outline:none;width:280px;transition:border-color 0.2s;}
+  .email-form input:focus{border-color:var(--accent);}
+  .email-form button{background:var(--darker);color:var(--white);border:none;padding:13px 28px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s;}
+  .email-form button:hover{background:var(--accent);}
+  .preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:64px;}
+  .preview-card{border:1px solid var(--border-md);border-radius:10px;overflow:hidden;box-shadow:var(--shadow-sm);}
+  .preview-img{height:160px;background:var(--darker);display:flex;align-items:center;justify-content:center;font-size:36px;}
+  .preview-body{padding:24px;}
+  .preview-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;}
+  .preview-body h3{font-size:20px;color:var(--darker);margin-bottom:8px;line-height:1.3;}
+  .preview-body p{font-size:13px;color:var(--slate);line-height:1.7;font-weight:300;}
+  .preview-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+  .preview-date{font-size:11px;color:var(--silver-mid);}
+  .preview-link{font-size:12px;color:var(--accent);text-decoration:none;font-weight:500;}
+  footer{background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:40px 60px;}
+  .footer-bottom{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .footer-copy{font-size:11.5px;color:rgba(255,255,255,0.2);}
+  .footer-links{display:flex;gap:24px;}
+  .footer-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
+  .footer-links a:hover{color:rgba(255,255,255,0.7);}
+  @media(max-width:768px){nav{padding:0 24px;}.hero{padding:56px 24px 48px;}.content{padding:48px 24px 72px;}.preview-grid{grid-template-columns:1fr;}footer{padding:40px 24px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-mark">M</div>
+    <span class="logo-text">Minted<em>Legacy</em></span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="section-label">Knowledge Base</div>
+    <h1>The MintedLegacy Blog</h1>
+    <p>Insights, tutorials, and industry news for branded crypto currency creators.</p>
+  </div>
+</div>
+<div class="content">
+  <div class="coming-soon">
+    <span class="icon">✍️</span>
+    <h2>Articles Coming Soon</h2>
+    <p>We're working on in-depth guides, launch case studies, and crypto currency tutorials. Enter your email to be notified when we publish our first articles.</p>
+    <div class="email-form">
+      <input type="email" placeholder="your@email.com"/>
+      <button>Notify Me</button>
+    </div>
+  </div>
+  <div class="preview-grid">
+    <div class="preview-card">
+      <div class="preview-img">📜</div>
+      <div class="preview-body">
+        <div class="preview-tag">Smart Contracts</div>
+        <h3>How to Deploy an ERC-20 Token Without Writing Code</h3>
+        <p>A step-by-step walkthrough of deploying your first branded crypto currency on Ethereum using our pre-audited templates.</p>
+      </div>
+      <div class="preview-footer"><span class="preview-date">Coming Soon</span><span class="preview-link">Coming Soon</span></div>
+    </div>
+    <div class="preview-card">
+      <div class="preview-img">📊</div>
+      <div class="preview-body">
+        <div class="preview-tag">Tokenomics</div>
+        <h3>The 5 Tokenomics Mistakes That Kill New Crypto Currencies</h3>
+        <p>Learn the most common supply and distribution errors that prevent new currencies from gaining traction after launch.</p>
+      </div>
+      <div class="preview-footer"><span class="preview-date">Coming Soon</span><span class="preview-link">Coming Soon</span></div>
+    </div>
+    <div class="preview-card">
+      <div class="preview-img">🚀</div>
+      <div class="preview-body">
+        <div class="preview-tag">Exchange Listings</div>
+        <h3>How to Get Listed on CoinGecko in Under 2 Weeks</h3>
+        <p>The exact submission checklist and timeline our members use to get approved on CoinGecko faster than average.</p>
+      </div>
+      <div class="preview-footer"><span class="preview-date">Coming Soon</span><span class="preview-link">Coming Soon</span></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Minted Legacy Ltd. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund.html">Refund Policy</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

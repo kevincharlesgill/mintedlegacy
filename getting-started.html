@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Getting Started — MintedLegacy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.cdnfonts.com/css/didot" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --white:#ffffff;
+  --off-white:#f8f9fb;
+  --silver:#b8c0d0;
+  --silver-mid:#8592aa;
+  --slate:#4a5568;
+  --dark:#1c2333;
+  --darker:#0d1117;
+  --accent:#708090;
+  --accent-soft:rgba(112,128,144,0.10);
+  --green:#0faf6d;
+  --border:rgba(0,0,0,0.07);
+  --border-md:rgba(0,0,0,0.11);
+  --border-dark:rgba(112,128,144,0.18);
+  --crypto:#4c9ac9;
+  --ecom:#0faf6d;
+}
+
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--dark);min-height:100vh;}
+
+/* NAV — matches main site exactly */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:68px;
+  background:var(--white);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+}
+.logo-text{
+  font-family:'Didot','GFS Didot','Bodoni MT','Bodoni 72','Playfair Display',Georgia,serif;
+  font-size:22px;color:var(--darker);letter-spacing:0.01em;text-decoration:none;
+}
+.logo-text em{font-style:italic;color:var(--accent);}
+.nav-links{display:flex;list-style:none;gap:34px;align-items:center;}
+.nav-links a{color:var(--slate);text-decoration:none;font-size:.9rem;}
+.nav-links a:hover{color:var(--darker);}
+.nav-cta{
+  padding:.5rem 1.3rem;background:var(--darker);color:var(--white) !important;
+  border-radius:7px;font-weight:600;font-size:.85rem;text-decoration:none;
+  transition:background .2s;
+}
+.nav-cta:hover{background:var(--accent) !important;}
+
+/* HERO */
+.hero{
+  background:var(--off-white);
+  padding:5rem 2rem 4rem;
+  text-align:center;
+  border-bottom:1px solid var(--border-md);
+}
+.hero-eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1.2rem;
+}
+.hero h1{
+  font-family:'Didot','GFS Didot','Bodoni MT','Bodoni 72',Georgia,serif;
+  font-size:clamp(2.4rem,5vw,3.8rem);
+  font-weight:700;line-height:1.08;
+  color:var(--darker);margin-bottom:1.2rem;
+}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.hero-sub{
+  font-size:1.1rem;color:var(--slate);font-weight:300;
+  max-width:600px;margin:0 auto 1.5rem;line-height:1.75;
+}
+.hero-tagline{
+  display:inline-block;
+  font-family:'DM Mono',monospace;
+  font-size:.78rem;color:var(--accent);letter-spacing:.06em;
+  padding:.5rem 1.2rem;background:var(--accent-soft);
+  border-radius:20px;border:1px solid rgba(112,128,144,.2);
+}
+
+/* COMPARISON BANNER */
+.comparison-wrap{max-width:860px;margin:3rem auto 0;padding:0 1.5rem;}
+.comparison-banner{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  border:1px solid var(--border-md);border-radius:12px;
+  background:var(--white);overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+.banner-side{padding:1.5rem 2rem;text-align:center;}
+.banner-side.left{border-right:1px solid var(--border-md);}
+.banner-side.right{border-left:1px solid var(--border-md);}
+.banner-label{
+  font-family:'DM Mono',monospace;
+  font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:.4rem;
+}
+.banner-label.c{color:var(--crypto);}
+.banner-label.e{color:var(--ecom);}
+.banner-title{font-size:.98rem;font-weight:600;color:var(--dark);}
+.banner-mid{
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem 1.2rem;
+  font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;
+  font-size:1.6rem;color:var(--accent);font-style:italic;
+}
+
+/* SECTION */
+.section{max-width:1100px;margin:0 auto;padding:4rem 1.5rem;}
+.section-header{text-align:center;margin-bottom:3rem;}
+.section-header h2{
+  font-family:'Didot','GFS Didot','Bodoni MT','Bodoni 72',Georgia,serif;
+  font-size:2rem;font-weight:700;color:var(--darker);margin-bottom:.5rem;
+}
+.section-header p{color:var(--slate);font-size:.95rem;}
+
+/* COL HEADERS */
+.col-headers{
+  display:grid;grid-template-columns:1fr 72px 1fr;
+  margin-bottom:.8rem;
+}
+.col-header{text-align:center;padding:.5rem;}
+.col-pill{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.4rem 1.1rem;border-radius:20px;
+  font-family:'DM Mono',monospace;
+  font-size:.7rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+}
+.col-pill.c{background:rgba(76,154,201,.08);color:var(--crypto);border:1px solid rgba(76,154,201,.18);}
+.col-pill.e{background:rgba(15,175,109,.08);color:var(--ecom);border:1px solid rgba(15,175,109,.18);}
+
+/* STEP ROWS */
+.steps{display:flex;flex-direction:column;}
+.step-row{
+  display:grid;grid-template-columns:1fr 72px 1fr;
+  align-items:stretch;margin-bottom:8px;
+}
+
+/* CARDS */
+.step-card{
+  background:var(--white);
+  border:1px solid var(--border-md);
+  padding:1.5rem 1.8rem;
+  transition:border-color .25s,box-shadow .25s;
+}
+.step-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);}
+.crypto-card{
+  border-radius:10px 0 0 10px;
+  border-right:none;
+  text-align:right;
+}
+.crypto-card:hover{border-color:rgba(76,154,201,.4);}
+.ecom-card{
+  border-radius:0 10px 10px 0;
+  border-left:none;
+  text-align:left;
+}
+.ecom-card:hover{border-color:rgba(15,175,109,.4);}
+
+.step-num{
+  font-family:'DM Mono',monospace;
+  font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+.step-num.c{color:var(--crypto);}
+.step-num.e{color:var(--ecom);}
+.step-icon{font-size:1.3rem;margin-bottom:.4rem;}
+.step-title{
+  font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;
+  font-size:1rem;font-weight:700;color:var(--darker);margin-bottom:.5rem;
+}
+.step-desc{font-size:.83rem;color:var(--slate);line-height:1.65;}
+.step-tag{
+  display:inline-block;margin-top:.7rem;
+  font-family:'DM Mono',monospace;
+  font-size:.65rem;padding:.2rem .65rem;border-radius:20px;
+}
+.step-tag.c{background:rgba(76,154,201,.08);color:var(--crypto);border:1px solid rgba(76,154,201,.2);}
+.step-tag.e{background:rgba(15,175,109,.08);color:var(--ecom);border:1px solid rgba(15,175,109,.2);}
+
+/* CENTER CONNECTOR */
+.step-mid{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;
+}
+.mid-line{
+  position:absolute;top:0;bottom:0;left:50%;
+  width:1px;background:var(--border-md);
+  transform:translateX(-50%);z-index:0;
+}
+.mid-bubble{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--white);border:1px solid var(--border-md);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;
+  font-size:.75rem;font-weight:500;color:var(--accent);
+  position:relative;z-index:2;
+  box-shadow:0 0 0 5px var(--white);
+}
+
+/* COST MAP */
+.cost-section{background:var(--off-white);border-top:1px solid var(--border-md);border-bottom:1px solid var(--border-md);padding:4rem 1.5rem;}
+.cost-inner{max-width:960px;margin:0 auto;}
+.cost-inner h2{
+  font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;
+  font-size:1.8rem;font-weight:700;color:var(--darker);
+  text-align:center;margin-bottom:.5rem;
+}
+.cost-sub{text-align:center;color:var(--slate);font-size:.92rem;margin-bottom:2.5rem;}
+.cost-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem;}
+.cost-card{
+  background:var(--white);border:1px solid var(--border-md);
+  border-radius:10px;padding:1.3rem 1.4rem;
+}
+.cost-step{
+  font-family:'DM Mono',monospace;
+  font-size:.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.35rem;
+}
+.cost-label{font-size:.9rem;font-weight:600;color:var(--dark);margin-bottom:.3rem;}
+.cost-amount{font-size:1.15rem;font-weight:700;color:var(--darker);}
+.cost-amount span{font-size:.75rem;color:var(--accent);font-weight:400;margin-left:.3rem;}
+.cost-note{font-size:.75rem;color:var(--silver-mid);margin-top:.3rem;line-height:1.5;}
+.cost-total{
+  background:var(--darker);color:var(--white);
+  border-radius:10px;padding:1.8rem 2rem;
+  text-align:center;max-width:480px;margin:0 auto;
+}
+.cost-total-label{
+  font-family:'DM Mono',monospace;
+  font-size:.68rem;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;
+}
+.cost-total-amount{font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;font-size:2.4rem;font-weight:700;color:var(--white);}
+.cost-total-note{font-size:.82rem;color:rgba(255,255,255,.45);margin-top:.4rem;}
+
+/* BOTTOM CTA */
+.cta-section{
+  background:var(--darker);padding:5rem 2rem;text-align:center;
+}
+.cta-section h2{
+  font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;
+  font-size:2.2rem;font-weight:700;color:var(--white);margin-bottom:.8rem;
+}
+.cta-section h2 em{font-style:italic;color:var(--accent);}
+.cta-section p{color:rgba(255,255,255,.55);font-size:.95rem;max-width:560px;margin:0 auto 2rem;line-height:1.75;}
+.btn-primary{
+  display:inline-block;padding:.9rem 2.2rem;
+  background:var(--white);color:var(--darker);
+  border-radius:7px;font-weight:600;font-size:.95rem;
+  text-decoration:none;transition:background .2s,transform .1s;
+  margin-right:.8rem;margin-bottom:.8rem;
+}
+.btn-primary:hover{background:var(--off-white);}
+.btn-outline-white{
+  display:inline-block;padding:.9rem 2.2rem;
+  background:transparent;color:var(--white);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:7px;font-weight:500;font-size:.95rem;
+  text-decoration:none;transition:border-color .2s;
+  margin-bottom:.8rem;
+}
+.btn-outline-white:hover{border-color:rgba(255,255,255,.6);}
+
+@media(max-width:720px){
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
+  .step-row{grid-template-columns:1fr 48px 1fr;}
+  .step-card{padding:1rem;}
+  .mid-bubble{width:32px;height:32px;font-size:.65rem;}
+  .comparison-banner{grid-template-columns:1fr;}
+  .banner-side.left{border-right:none;border-bottom:1px solid var(--border-md);}
+  .banner-side.right{border-left:none;border-top:1px solid var(--border-md);}
+  .banner-mid{padding:.8rem;}
+}
+</style>
+</head>
+<body>
+<div style="background:#fff8e1;border-bottom:1px solid #f0c040;padding:.7rem 1.5rem;text-align:center;font-size:.82rem;font-family:DM Sans,sans-serif;color:#7a5c00;">⚠️ This guide is for informational purposes only. Cryptocurrency involves substantial financial risk. <a href="terms.html" style="color:#5a3e00;font-weight:600;text-decoration:underline;">Read our full Terms <body>amp; Conditions</a> before proceeding.</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo-text">Minted<em>Legacy</em></a>
+  <ul class="nav-links">
+    <li><a href="index.html#how">How It Works</a></li>
+    <li><a href="index.html#benefits">Benefits</a></li>
+    <li><a href="index.html#pricing">Pricing</a></li>
+    <li><a href="login.html">Sign In</a></li>
+    <li><a href="register.html" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">MintedLegacy — Getting Started Guide</div>
+  <h1>It's Simpler Than<br/><em>You Think.</em></h1>
+  <p class="hero-sub">Launching your own branded crypto currency follows the exact same logic as starting an online store. If you've ever sold anything online — you already understand this.</p>
+  <span class="hero-tagline">Same journey. Different product. Bigger opportunity.</span>
+
+  <div class="comparison-wrap">
+    <div class="comparison-banner">
+      <div class="banner-side left">
+        <div class="banner-label c">🪙 Your Path</div>
+        <div class="banner-title">Launching a Crypto Currency</div>
+      </div>
+      <div class="banner-mid">=</div>
+      <div class="banner-side right">
+        <div class="banner-label e">🛒 You Already Know This</div>
+        <div class="banner-title">Starting an Online Store</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<div class="section">
+  <div class="section-header">
+    <h2>Your Side-by-Side <em>Roadmap</em></h2>
+    <p>Every step on the left has an equivalent you already understand on the right.</p>
+  </div>
+
+  <div class="col-headers">
+    <div class="col-header"><span class="col-pill c">🪙 Crypto Launch</span></div>
+    <div class="col-header"></div>
+    <div class="col-header"><span class="col-pill e">🛒 Online Store</span></div>
+  </div>
+
+  <div class="steps">
+
+    <!-- STEP 1 -->
+    <div class="step-row">
+      <div class="step-card crypto-card">
+        <div class="step-num c">Step 1</div>
+        <div class="step-icon">👛</div>
+        <div class="step-title">Get a Crypto Wallet</div>
+        <div class="step-desc">MetaMask is your digital wallet — think of it like a purse or billfold that lives on your phone or computer. It holds your crypto (digital money), approves your actions on the network, and gives you a unique identity on the blockchain (the giant public record book where all crypto activity is permanently tracked). Free to download, takes 5 minutes to set up.</div>
+        <span class="step-tag c">MetaMask — Free</span>
+      </div>
+      <div class="step-mid">
+        <div class="mid-line"></div>
+        <div class="mid-bubble">1</div>
+      </div>
+      <div class="step-card ecom-card">
+        <div class="step-num e">Equivalent</div>
+        <div class="step-icon">🏦</div>
+        <div class="step-title">Open a PayPal or Bank Account</div>
+        <div class="step-desc">Before you can sell anything online you need somewhere to receive and hold money. A PayPal or Stripe account is your financial identity online — nobody can pay you without it. Same idea, different technology.</div>
+        <span class="step-tag e">PayPal / Stripe — Free</span>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step-row">
+      <div class="step-card crypto-card">
+        <div class="step-num c">Step 2</div>
+        <div class="step-icon">💵</div>
+        <div class="step-title">Fund Your Wallet</div>
+        <div class="step-desc">Buy $50–$100 of ETH or BNB (these are types of cryptocurrency — think of them like different currencies in different countries) on Kraken (a trusted online exchange, like a currency exchange desk at an airport). Send it to your MetaMask wallet to cover gas fees (small processing charges the network collects every time you do something — just like a transaction fee at a bank). This is your one-time cost to get started.</div>
+        <span class="step-tag c">Kraken — ~$50–$100</span>
+      </div>
+      <div class="step-mid">
+        <div class="mid-line"></div>
+        <div class="mid-bubble">2</div>
+      </div>
+      <div class="step-card ecom-card">
+        <div class="step-num e">Equivalent</div>
+        <div class="step-icon">💳</div>
+        <div class="step-title">Buy Your Starting Inventory</div>
+        <div class="step-desc">Every online store needs startup capital — money to buy your first batch of products before you can sell them. This is your cost of entry into business. In crypto, you're funding the system instead of a warehouse.</div>
+        <span class="step-tag e">Wholesale / Alibaba — ~$100–$500</span>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step-row">
+      <div class="step-card crypto-card">
+        <div class="step-num c">Step 3</div>
+        <div class="step-icon">⛓️</div>
+        <div class="step-title">Choose Your Blockchain</div>
+        <div class="step-desc">A blockchain (think of it as a giant public spreadsheet that records every transaction and can never be erased or tampered with) is the network your coin will live on. You need to pick one — Ethereum, BNB Chain, or Solana. Each is like a different country with its own rules and costs. We recommend BNB Chain for beginners — it has the lowest fees, the easiest setup, and your MetaMask wallet works with it automatically.</div>
+        <span class="step-tag c">BNB Chain — Recommended</span>
+      </div>
+      <div class="step-mid">
+        <div class="mid-line"></div>
+        <div class="mid-bubble">3</div>
+      </div>
+      <div class="step-card ecom-card">
+        <div class="step-num e">Equivalent</div>
+        <div class="step-icon">🏪</div>
+        <div class="step-title">Choose Your Platform</div>
+        <div class="step-desc">Shopify, Etsy, or Amazon — you have to decide where your store lives. Each platform has different costs, audiences, and rules. Shopify is the most popular choice for beginners because it's beginner-friendly and gives you the most control. Same decision, same logic.</div>
+        <span class="step-tag e">Shopify — Recommended</span>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step-row">
+      <div class="step-card crypto-card">
+        <div class="step-num c">Step 4</div>
+        <div class="step-icon">🪙</div>
+        <div class="step-title">Create Your Coin</div>
+        <div class="step-desc">Use Token Tool — a website that acts like a coin-building wizard. No coding or technical knowledge needed. Fill in your coin name, ticker symbol (the short abbreviation for your coin — like DOGE or BTC), and total supply (how many coins will ever exist). Pay a small gas fee (processing charge) and within minutes your coin officially exists on the blockchain forever. You'll receive a contract address — a permanent unique ID for your coin, like a serial number. Save it immediately.</div>
+        <span class="step-tag c">Token Tool — ~$20–$50 gas</span>
+      </div>
+      <div class="step-mid">
+        <div class="mid-line"></div>
+        <div class="mid-bubble">4</div>
+      </div>
+      <div class="step-card ecom-card">
+        <div class="step-num e">Equivalent</div>
+        <div class="step-icon">📦</div>
+        <div class="step-title">List Your Product</div>
+        <div class="step-desc">Creating your product listing on Shopify or Etsy — adding photos, a title, description, and a price. This is the moment your product officially exists in the marketplace and can be seen by the world. Your coin's creation is the exact same moment.</div>
+        <span class="step-tag e">Shopify / Etsy — Free to list</span>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step-row">
+      <div class="step-card crypto-card">
+        <div class="step-num c">Step 5</div>
+        <div class="step-icon">💧</div>
+        <div class="step-title">Add Liquidity So Your Coin Can Be Traded</div>
+        <div class="step-desc">Your coin exists but nobody can buy or sell it yet. Adding liquidity (think of it like stocking a store shelf — putting your product out so customers can actually purchase it) is done through a DEX (Decentralized Exchange — an online marketplace where people trade crypto directly with each other, with no bank or middleman involved). You deposit some of your coins alongside some ETH or BNB and that combination is what lets anyone in the world trade your coin. The more you deposit, the more stable your price will be.</div>
+        <span class="step-tag c">PancakeSwap — ~$50–$200</span>
+      </div>
+      <div class="step-mid">
+        <div class="mid-line"></div>
+        <div class="mid-bubble">5</div>
+      </div>
+      <div class="step-card ecom-card">
+        <div class="step-num e">Equivalent</div>
+        <div class="step-icon">🚪</div>
+        <div class="step-title">Open Your Store for Business</div>
+        <div class="step-desc">Hitting "publish" and making your store live so customers can actually check out and pay. Until you do this, nobody can buy anything. Adding liquidity is the crypto version of flipping the open sign on your door for the very first time.</div>
+        <span class="step-tag e">Shopify — $29/mo</span>
+      </div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="step-row">
+      <div class="step-card crypto-card">
+        <div class="step-num c">Step 6</div>
+        <div class="step-icon">📋</div>
+        <div class="step-title">Get Listed on CoinGecko &amp; CoinMarketCap</div>
+        <div class="step-desc">CoinGecko and CoinMarketCap (often called CMC) are the two biggest crypto tracking websites in the world — think of them like Google for cryptocurrency. Millions of investors search these sites every single day looking for new coins to buy. Getting your coin listed here gives it instant credibility and makes it searchable worldwide. You'll need your contract address (your coin's unique ID from Step 4), your logo, and your website. Both listings are completely free.</div>
+        <span class="step-tag c">CoinGecko / CMC — Free</span>
+      </div>
+      <div class="step-mid">
+        <div class="mid-line"></div>
+        <div class="mid-bubble">6</div>
+      </div>
+      <div class="step-card ecom-card">
+        <div class="step-num e">Equivalent</div>
+        <div class="step-icon">🔍</div>
+        <div class="step-title">Get Listed on Google Shopping</div>
+        <div class="step-desc">Submitting your products to Google Shopping and price comparison sites so buyers who are already searching can discover your store. Free visibility in front of millions of active shoppers. The reach is enormous and it costs nothing to get listed.</div>
+        <span class="step-tag e">Google Merchant — Free</span>
+      </div>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="step-row">
+      <div class="step-card crypto-card">
+        <div class="step-num c">Step 7</div>
+        <div class="step-icon">👥</div>
+        <div class="step-title">Build Your Community</div>
+        <div class="step-desc">A coin without a community is just a number on a screen. Launch your Twitter/X account, your Telegram group (a community chat app popular in crypto — think of it like a group text with thousands of people), and your Discord server (another community platform with organized channels for different topics). Post updates daily, respond to questions, and make people feel like they're part of something. A strong community is the single biggest driver of a coin's success — more than any ad you'll ever run.</div>
+        <span class="step-tag c">Twitter / Telegram / Discord — Free</span>
+      </div>
+      <div class="step-mid">
+        <div class="mid-line"></div>
+        <div class="mid-bubble">7</div>
+      </div>
+      <div class="step-card ecom-card">
+        <div class="step-num e">Equivalent</div>
+        <div class="step-icon">📱</div>
+        <div class="step-title">Build Your Social Following</div>
+        <div class="step-desc">Create your brand Instagram, TikTok, and Facebook pages. Post product photos and behind-the-scenes content, engage with your followers, and build an audience that trusts your brand. Same idea — community and trust drive sales more than any paid ad ever will.</div>
+        <span class="step-tag e">Instagram / TikTok — Free</span>
+      </div>
+    </div>
+
+    <!-- STEP 8 -->
+    <div class="step-row">
+      <div class="step-card crypto-card">
+        <div class="step-num c">Step 8</div>
+        <div class="step-icon">📣</div>
+        <div class="step-title">Promote Your Coin</div>
+        <div class="step-desc">Reach out to crypto influencers (content creators with large followings in the crypto space) on YouTube and Twitter/X for paid shoutouts or reviews. Post in Reddit communities like r/CryptoMoonShots where investors actively look for new coins. Submit press releases (official news announcements) to crypto news sites like CoinTelegraph. Get listed on CoinHunt and Coinsniper — free sites where new coins are voted on daily by the community. Your MintedLegacy vault has templates ready for all of this.</div>
+        <span class="step-tag c">Reddit / Influencers / PR</span>
+      </div>
+      <div class="step-mid">
+        <div class="mid-line"></div>
+        <div class="mid-bubble">8</div>
+      </div>
+      <div class="step-card ecom-card">
+        <div class="step-num e">Equivalent</div>
+        <div class="step-icon">🎯</div>
+        <div class="step-title">Run Ads &amp; Influencer Campaigns</div>
+        <div class="step-desc">Run Facebook and Instagram ads, partner with influencers in your product niche, and pitch your product to bloggers and online press. Every successful e-commerce brand uses exactly this playbook at launch. Same strategy, different product category.</div>
+        <span class="step-tag e">Meta Ads / Influencers</span>
+      </div>
+    </div>
+
+    <!-- STEP 9 -->
+    <div class="step-row">
+      <div class="step-card crypto-card">
+        <div class="step-num c">Step 9</div>
+        <div class="step-icon">🎁</div>
+        <div class="step-title">Launch Your Airdrop (Free Coin Giveaway)</div>
+        <div class="step-desc">An airdrop means giving away a small number of your coins completely free in exchange for simple actions — like following your Twitter/X account, joining your Telegram group (community chat), or sharing your announcement. People receive the free coins sent directly to their wallet (digital purse). It costs you nothing but a small slice of your total supply. In return you get real holders (people who now own your coin and want it to succeed), real followers, and viral sharing almost overnight. People who receive free coins become your most loyal fans because they have a personal stake in your success.</div>
+        <span class="step-tag c">Your Vault Template — Ready Now</span>
+      </div>
+      <div class="step-mid">
+        <div class="mid-line"></div>
+        <div class="mid-bubble">9</div>
+      </div>
+      <div class="step-card ecom-card">
+        <div class="step-num e">Equivalent</div>
+        <div class="step-icon">🎉</div>
+        <div class="step-title">Run a Free Product Giveaway</div>
+        <div class="step-desc">Give away your product free in exchange for follows, shares, and email signups. Every successful e-commerce brand runs a launch giveaway — it's the fastest and cheapest way to build an audience, create buzz, and get your first wave of loyal customers all at once.</div>
+        <span class="step-tag e">Gleam / KingSumo — Free tier</span>
+      </div>
+    </div>
+
+    <!-- STEP 10 -->
+    <div class="step-row">
+      <div class="step-card crypto-card">
+        <div class="step-num c">Step 10</div>
+        <div class="step-icon">📈</div>
+        <div class="step-title">Keep the Momentum Going</div>
+        <div class="step-desc">Launching your coin is just the beginning. Post weekly updates so your community (your holders — the people who own your coin) knows the project is alive and growing. Hit your roadmap milestones (the public goals you promised your community). Keep adding liquidity (more money deposited into your trading pool) as you grow — it stabilizes price and builds investor confidence. Pursue CEX listings (Centralized Exchanges — larger mainstream trading platforms like Coinbase or Binance where even bigger audiences can discover and buy your coin). Silence kills coins. Consistency wins every time.</div>
+        <span class="step-tag c">Long Game — Never Stop</span>
+      </div>
+      <div class="step-mid">
+        <div class="mid-bubble">10</div>
+      </div>
+      <div class="step-card ecom-card">
+        <div class="step-num e">Equivalent</div>
+        <div class="step-icon">🔄</div>
+        <div class="step-title">Scale, Restock &amp; Grow</div>
+        <div class="step-desc">Add new products, run seasonal sales, grow your email list, expand to new platforms, and keep serving your customers better every month. The most successful online stores never stand still — they compound their growth one consistent action at a time. Your coin is no different.</div>
+        <span class="step-tag e">Long Game — Never Stop</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- COST MAP -->
+<div class="cost-section">
+  <div class="cost-inner">
+    <h2>Your Total <em>Startup Cost</em> Map</h2>
+    <p class="cost-sub">Here is every dollar you'll spend, step by step — no surprises.</p>
+    <div class="cost-grid">
+      <div class="cost-card">
+        <div class="cost-step">Step 1</div>
+        <div class="cost-label">MetaMask Wallet</div>
+        <div class="cost-amount">$0 <span>Free</span></div>
+        <div class="cost-note">Completely free to download and set up on your phone or computer</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-step">Step 2</div>
+        <div class="cost-label">Fund Your Wallet</div>
+        <div class="cost-amount">$50–$100</div>
+        <div class="cost-note">ETH or BNB (types of crypto) bought via Kraken to cover gas fees (processing charges)</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-step">Step 3</div>
+        <div class="cost-label">Choose Your Blockchain</div>
+        <div class="cost-amount">$0 <span>Free</span></div>
+        <div class="cost-note">A decision only — there is no cost to choose which network your coin lives on</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-step">Step 4</div>
+        <div class="cost-label">Create Your Coin</div>
+        <div class="cost-amount">$20–$50</div>
+        <div class="cost-note">One-time gas fee (processing charge) paid through Token Tool — never charged again</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-step">Step 5</div>
+        <div class="cost-label">Add Liquidity</div>
+        <div class="cost-amount">$50–$200</div>
+        <div class="cost-note">This money is deposited into your own trading pool — you still own it, it is not spent</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-step">Steps 6–10</div>
+        <div class="cost-label">List, Promote &amp; Grow</div>
+        <div class="cost-amount">$0–$200</div>
+        <div class="cost-note">CoinGecko and CoinMarketCap listings are free. Promotion spend is entirely your choice</div>
+      </div>
+    </div>
+    <div class="cost-total">
+      <div class="cost-total-label">Total Estimated Startup Cost</div>
+      <div class="cost-total-amount">$120 – $550</div>
+      <div class="cost-total-note">Compare that to starting a traditional business or a fully stocked online store.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Everything You Need Is<br/><em>Already in Your Vault.</em></h2>
+  <p>Every template, every document, and every piece of content for all 10 steps is pre-filled with your coin details and ready to download the moment you need it. MintedLegacy built the entire toolkit so you can focus on building your coin.</p>
+  <a href="register.html" class="btn-primary">Create My Account →</a>
+  <a href="vault.html" class="btn-outline-white">Open My Vault</a>
+</div>
+
+<footer style="background:#0d1117;color:rgba(255,255,255,.4);padding:2.5rem;text-align:center;font-size:.82rem;font-family:DM Sans,sans-serif;border-top:1px solid rgba(112,128,144,.15);"><div style="font-family:Didot,GFS Didot,Bodoni MT,Georgia,serif;font-size:1.1rem;color:#fff;margin-bottom:.8rem;">Minted<em style="font-style:italic;color:#708090;">Legacy</em></div><div style="margin:.8rem 0;"><a href="index.html" style="color:rgba(255,255,255,.45);text-decoration:none;margin:0 .8rem;">Home</a><a href="getting-started.html" style="color:rgba(255,255,255,.45);text-decoration:none;margin:0 .8rem;">Getting Started</a><a href="terms.html" style="color:rgba(255,255,255,.45);text-decoration:none;margin:0 .8rem;">Terms </body>amp; Conditions</a><a href="privacy.html" style="color:rgba(255,255,255,.45);text-decoration:none;margin:0 .8rem;">Privacy Policy</a><a href="refund.html" style="color:rgba(255,255,255,.45);text-decoration:none;margin:0 .8rem;">Refund Policy</a><a href="login.html" style="color:rgba(255,255,255,.45);text-decoration:none;margin:0 .8rem;">Sign In</a></div><p style="margin-top:.8rem;"></body>#169; 2026 MintedLegacy. All rights reserved. For informational purposes only. Not financial or legal advice. <a href="terms.html" style="color:#708090;text-decoration:none;">Full Terms </body>amp; Conditions</a></p></footer>
+</body>
+</html>

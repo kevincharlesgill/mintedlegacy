@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Glossary — MintedLegacy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  @import url('https://fonts.cdnfonts.com/css/didot');
+  :root{--white:#ffffff;--off-white:#f8f9fb;--darker:#0d1117;--dark:#1c2333;--slate:#4a5568;--silver:#b8c0d0;--silver-mid:#8592aa;--accent:#708090;--border:rgba(0,0,0,0.07);--border-md:rgba(0,0,0,0.11);--shadow-xs:0 1px 6px rgba(0,0,0,0.05);}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--white);color:var(--dark);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;font-weight:400;}
+  nav{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 60px;background:rgba(255,255,255,0.97);border-bottom:1px solid var(--border);box-shadow:var(--shadow-xs);}
+  .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+  .logo-mark{width:34px;height:34px;background:var(--darker);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;font-size:17px;color:var(--white);}
+  .logo-text{font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;font-size:20px;color:var(--darker);}
+  .logo-text em{font-style:italic;color:var(--accent);}
+  .nav-back{font-size:13px;color:var(--slate);text-decoration:none;font-weight:500;transition:color 0.2s;}
+  .nav-back:hover{color:var(--accent);}
+  .hero{background:var(--off-white);border-bottom:1px solid var(--border);padding:72px 60px 60px;}
+  .hero-inner{max-width:1000px;margin:0 auto;}
+  .section-label{font-size:10.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .section-label::before{content:'';width:22px;height:1.5px;background:var(--accent);border-radius:2px;}
+  .hero h1{font-size:clamp(36px,5vw,58px);color:var(--darker);margin-bottom:14px;}
+  .hero p{font-size:15px;color:var(--silver-mid);font-weight:300;max-width:540px;}
+  .content{max-width:1000px;margin:0 auto;padding:72px 60px 100px;}
+  .alpha-nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:56px;}
+  .alpha-btn{width:36px;height:36px;border:1px solid var(--border-md);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--slate);text-decoration:none;transition:all 0.2s;font-family:'DM Mono',monospace;}
+  .alpha-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .letter-group{margin-bottom:48px;}
+  .letter-heading{font-family:'Didot','GFS Didot','Bodoni MT',Georgia,serif;font-size:42px;color:var(--accent);margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border-md);}
+  .term{padding:20px 0;border-bottom:1px solid var(--border);}
+  .term:last-child{border-bottom:none;}
+  .term-word{font-size:16px;font-weight:600;color:var(--darker);margin-bottom:6px;}
+  .term-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:9.5px;background:rgba(112,128,144,0.1);color:var(--accent);padding:2px 8px;border-radius:4px;margin-left:10px;letter-spacing:0.06em;text-transform:uppercase;vertical-align:middle;}
+  .term-def{font-size:14px;color:var(--slate);line-height:1.8;font-weight:300;}
+  footer{background:#080c14;border-top:1px solid rgba(255,255,255,0.06);padding:40px 60px;}
+  .footer-bottom{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .footer-copy{font-size:11.5px;color:rgba(255,255,255,0.2);}
+  .footer-links{display:flex;gap:24px;}
+  .footer-links a{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s;}
+  .footer-links a:hover{color:rgba(255,255,255,0.7);}
+  @media(max-width:768px){nav{padding:0 24px;}.hero{padding:56px 24px 48px;}.content{padding:48px 24px 72px;}footer{padding:40px 24px;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">
+    <div class="logo-mark">M</div>
+    <span class="logo-text">Minted<em>Legacy</em></span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="section-label">Reference</div>
+    <h1>Crypto Glossary</h1>
+    <p>Every term you need to know to confidently build and launch your branded crypto currency.</p>
+  </div>
+</div>
+<div class="content">
+  <div class="alpha-nav">
+    <a href="#A" class="alpha-btn">A</a><a href="#B" class="alpha-btn">B</a><a href="#C" class="alpha-btn">C</a><a href="#D" class="alpha-btn">D</a><a href="#E" class="alpha-btn">E</a><a href="#F" class="alpha-btn">F</a><a href="#G" class="alpha-btn">G</a><a href="#L" class="alpha-btn">L</a><a href="#M" class="alpha-btn">M</a><a href="#N" class="alpha-btn">N</a><a href="#P" class="alpha-btn">P</a><a href="#S" class="alpha-btn">S</a><a href="#T" class="alpha-btn">T</a><a href="#W" class="alpha-btn">W</a>
+  </div>
+
+  <div class="letter-group" id="A">
+    <div class="letter-heading">A</div>
+    <div class="term"><div class="term-word">Airdrop <span class="term-tag">Marketing</span></div><div class="term-def">A distribution of free tokens to a list of wallet addresses, typically used to build an early holder base and generate awareness before or after a coin launch.</div></div>
+    <div class="term"><div class="term-word">Anti-Whale Mechanism <span class="term-tag">Tokenomics</span></div><div class="term-def">A smart contract rule that limits the maximum number of tokens any single wallet can hold or trade at one time, preventing large holders from manipulating the price.</div></div>
+    <div class="term"><div class="term-word">Audit <span class="term-tag">Security</span></div><div class="term-def">A professional security review of a smart contract's code, conducted to identify vulnerabilities before deployment. Audited contracts build trust with potential holders and exchanges.</div></div>
+  </div>
+
+  <div class="letter-group" id="B">
+    <div class="letter-heading">B</div>
+    <div class="term"><div class="term-word">Blockchain <span class="term-tag">Infrastructure</span></div><div class="term-def">A decentralized, distributed digital ledger that records all transactions across a network of computers. Your branded crypto currency lives and operates on a blockchain.</div></div>
+    <div class="term"><div class="term-word">BEP-20 <span class="term-tag">Standard</span></div><div class="term-def">The token standard for the BNB Smart Chain (formerly Binance Smart Chain). BEP-20 tokens are faster and cheaper to deploy than Ethereum-based tokens.</div></div>
+    <div class="term"><div class="term-word">Burn <span class="term-tag">Tokenomics</span></div><div class="term-def">The permanent removal of tokens from circulation, typically by sending them to an unrecoverable wallet address. Burning reduces supply and can increase scarcity over time.</div></div>
+  </div>
+
+  <div class="letter-group" id="C">
+    <div class="letter-heading">C</div>
+    <div class="term"><div class="term-word">CoinGecko <span class="term-tag">Exchange</span></div><div class="term-def">One of the world's largest cryptocurrency data aggregators. Getting listed on CoinGecko gives your currency public visibility, a price chart, and credibility with potential holders.</div></div>
+    <div class="term"><div class="term-word">CoinMarketCap <span class="term-tag">Exchange</span></div><div class="term-def">The most widely visited cryptocurrency data platform. A CoinMarketCap listing is considered a major milestone for any new currency launch.</div></div>
+    <div class="term"><div class="term-word">Contract Address <span class="term-tag">Technical</span></div><div class="term-def">The unique identifier assigned to your smart contract when it is deployed on a blockchain. This address is what exchanges and holders use to find and interact with your currency.</div></div>
+  </div>
+
+  <div class="letter-group" id="D">
+    <div class="letter-heading">D</div>
+    <div class="term"><div class="term-word">DEX (Decentralized Exchange) <span class="term-tag">Exchange</span></div><div class="term-def">A peer-to-peer trading platform that allows users to trade cryptocurrencies directly from their wallets without a central authority. Examples include Uniswap and PancakeSwap.</div></div>
+    <div class="term"><div class="term-word">DEXTools <span class="term-tag">Exchange</span></div><div class="term-def">A popular analytics platform for decentralized exchanges. Getting listed on DEXTools provides real-time price charts and trading data for your currency.</div></div>
+    <div class="term"><div class="term-word">Distribution <span class="term-tag">Tokenomics</span></div><div class="term-def">The plan for how your total token supply is allocated across categories such as liquidity pool, team allocation, marketing, community rewards, and public sale.</div></div>
+  </div>
+
+  <div class="letter-group" id="E">
+    <div class="letter-heading">E</div>
+    <div class="term"><div class="term-word">ERC-20 <span class="term-tag">Standard</span></div><div class="term-def">The most widely used token standard on the Ethereum blockchain. ERC-20 tokens are compatible with the largest ecosystem of wallets, exchanges, and DeFi applications.</div></div>
+  </div>
+
+  <div class="letter-group" id="F">
+    <div class="letter-heading">F</div>
+    <div class="term"><div class="term-word">Fee / Tax <span class="term-tag">Tokenomics</span></div><div class="term-def">A percentage charged on each buy or sell transaction, built into the smart contract. Fees are typically split between liquidity, marketing, and burn functions.</div></div>
+    <div class="term"><div class="term-word">Fiat <span class="term-tag">General</span></div><div class="term-def">Traditional government-issued currency such as US dollars or euros, as opposed to cryptocurrency.</div></div>
+  </div>
+
+  <div class="letter-group" id="G">
+    <div class="letter-heading">G</div>
+    <div class="term"><div class="term-word">Gas Fee <span class="term-tag">Technical</span></div><div class="term-def">The transaction fee paid to the blockchain network to process and confirm a transaction. On Ethereum, gas fees can be high during periods of network congestion.</div></div>
+  </div>
+
+  <div class="letter-group" id="L">
+    <div class="letter-heading">L</div>
+    <div class="term"><div class="term-word">Liquidity Pool (LP) <span class="term-tag">Technical</span></div><div class="term-def">A pool of tokens locked in a smart contract that enables trading on a decentralized exchange. Adding liquidity to your currency makes it tradeable on platforms like Uniswap.</div></div>
+    <div class="term"><div class="term-word">LP Lock <span class="term-tag">Security</span></div><div class="term-def">The process of locking liquidity pool tokens in a time-locked contract so the creator cannot remove liquidity and abandon the project. LP locking builds trust with holders.</div></div>
+  </div>
+
+  <div class="letter-group" id="M">
+    <div class="letter-heading">M</div>
+    <div class="term"><div class="term-word">Mainnet <span class="term-tag">Technical</span></div><div class="term-def">The live, real blockchain network where actual transactions occur with real value. Contrasts with testnet, which is used for testing only.</div></div>
+    <div class="term"><div class="term-word">Market Cap <span class="term-tag">General</span></div><div class="term-def">The total market value of a cryptocurrency, calculated by multiplying the current price by the circulating supply.</div></div>
+    <div class="term"><div class="term-word">Mint <span class="term-tag">Technical</span></div><div class="term-def">The process of creating new tokens on a blockchain. When you deploy your smart contract, you mint your initial token supply.</div></div>
+  </div>
+
+  <div class="letter-group" id="N">
+    <div class="letter-heading">N</div>
+    <div class="term"><div class="term-word">NFT (Non-Fungible Token) <span class="term-tag">General</span></div><div class="term-def">A unique digital asset on a blockchain that cannot be replicated or exchanged on a one-to-one basis. Different from standard crypto currencies which are fungible.</div></div>
+  </div>
+
+  <div class="letter-group" id="P">
+    <div class="letter-heading">P</div>
+    <div class="term"><div class="term-word">PancakeSwap <span class="term-tag">Exchange</span></div><div class="term-def">The leading decentralized exchange on the BNB Smart Chain. Ideal for listing BEP-20 branded crypto currencies due to low fees and high volume.</div></div>
+    <div class="term"><div class="term-word">Presale <span class="term-tag">Launch</span></div><div class="term-def">A period before the public launch when early supporters can purchase tokens at a discounted rate. Presales help raise initial liquidity and build a committed holder base.</div></div>
+  </div>
+
+  <div class="letter-group" id="S">
+    <div class="letter-heading">S</div>
+    <div class="term"><div class="term-word">Smart Contract <span class="term-tag">Technical</span></div><div class="term-def">Self-executing code stored on a blockchain that automatically enforces the rules of your token — including supply, taxes, burn mechanics, and trading restrictions.</div></div>
+    <div class="term"><div class="term-word">SPL Token <span class="term-tag">Standard</span></div><div class="term-def">The token standard for the Solana blockchain. SPL tokens benefit from Solana's extremely fast transaction speeds and very low fees.</div></div>
+    <div class="term"><div class="term-word">Supply <span class="term-tag">Tokenomics</span></div><div class="term-def">The total number of tokens that exist for your currency. Total supply includes all tokens ever created; circulating supply refers to tokens currently available to the public.</div></div>
+  </div>
+
+  <div class="letter-group" id="T">
+    <div class="letter-heading">T</div>
+    <div class="term"><div class="term-word">Ticker Symbol <span class="term-tag">General</span></div><div class="term-def">The short abbreviation used to identify your currency on exchanges and charts. For example, DOGE, SHIB, or PEPE. Your ticker is set when you deploy your smart contract.</div></div>
+    <div class="term"><div class="term-word">Tokenomics <span class="term-tag">Tokenomics</span></div><div class="term-def">The economic model of your crypto currency — covering total supply, distribution, burn schedule, transaction taxes, and vesting periods. Strong tokenomics are critical to long-term value.</div></div>
+    <div class="term"><div class="term-word">Testnet <span class="term-tag">Technical</span></div><div class="term-def">A simulated blockchain environment used for testing smart contracts without using real money. Always test your contract on a testnet before deploying to mainnet.</div></div>
+  </div>
+
+  <div class="letter-group" id="W">
+    <div class="letter-heading">W</div>
+    <div class="term"><div class="term-word">Wallet <span class="term-tag">Technical</span></div><div class="term-def">A digital application that stores your private keys and allows you to send, receive, and manage cryptocurrency. Common wallets include MetaMask, Trust Wallet, and Phantom.</div></div>
+    <div class="term"><div class="term-word">Whitepaper <span class="term-tag">Launch</span></div><div class="term-def">A formal document that describes your currency's purpose, tokenomics, roadmap, and team. A professional whitepaper is typically required for exchange listings and builds credibility with potential holders.</div></div>
+  </div>
+
+</div>
+<footer>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Minted Legacy Ltd. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund.html">Refund Policy</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

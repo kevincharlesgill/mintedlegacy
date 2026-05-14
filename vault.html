@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Download Vault — MintedLegacy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --dark:#0d1117;
+  --darker:#080b10;
+  --accent:#708090;
+  --accent-light:#8a9aaa;
+  --white:#fff;
+  --green:#0faf6d;
+  --border:rgba(112,128,144,0.2);
+  --card:#111720;
+  --locked:rgba(112,128,144,0.05);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--darker);color:var(--white);min-height:100vh;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5rem;border-bottom:1px solid var(--border);background:var(--dark);position:sticky;top:0;z-index:100;}
+.nav-logo{font-size:1.3rem;font-weight:600;letter-spacing:-.02em;color:var(--white);text-decoration:none;}
+.nav-logo span{color:var(--accent);}
+.nav-right{display:flex;align-items:center;gap:1.2rem;}
+.nav-user{font-size:.9rem;color:var(--accent-light);}
+.btn-nav{padding:.5rem 1.2rem;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--accent-light);font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;}
+.btn-nav:hover{border-color:var(--accent);color:var(--white);}
+.container{max-width:1040px;margin:0 auto;padding:2.5rem 1.5rem;}
+/* HEADER */
+.vault-header{margin-bottom:2rem;}
+.vault-header h1{font-size:2rem;font-weight:600;letter-spacing:-.03em;margin-bottom:.3rem;}
+.vault-header p{color:var(--accent-light);}
+/* PROFILE BANNER */
+.profile-banner{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.profile-fields{display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;}
+.pf{font-size:.85rem;color:var(--accent-light);}
+.pf strong{color:var(--white);}
+.pf-empty{color:rgba(255,255,255,.25);font-style:italic;}
+/* TIER NOTICE */
+.tier-notice{background:rgba(112,128,144,.08);border:1px solid var(--border);border-radius:10px;padding:1rem 1.3rem;margin-bottom:2rem;font-size:.9rem;color:var(--accent-light);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;}
+.tier-badge{padding:.3rem .8rem;border-radius:20px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
+.tier-starter{background:rgba(112,128,144,.15);color:var(--accent-light);}
+.tier-builder{background:rgba(15,175,109,.1);color:var(--green);}
+.tier-launch{background:rgba(255,200,50,.1);color:#ffd050;}
+/* GRID */
+.vault-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;}
+/* ASSET CARD */
+.asset-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:border-color .2s,transform .2s;position:relative;}
+.asset-card:hover:not(.locked){border-color:var(--accent);transform:translateY(-2px);}
+.asset-card.locked{opacity:.45;cursor:not-allowed;}
+.asset-icon{font-size:1.8rem;margin-bottom:.8rem;}
+.asset-title{font-weight:600;font-size:1rem;margin-bottom:.35rem;}
+.asset-desc{font-size:.83rem;color:var(--accent-light);line-height:1.5;margin-bottom:1.1rem;}
+.asset-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;}
+.tag{font-size:.7rem;padding:.2rem .6rem;border-radius:20px;background:rgba(112,128,144,.12);color:var(--accent-light);}
+.btn-download{width:100%;padding:.7rem;background:var(--accent);color:var(--white);border:none;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+.btn-download:hover{background:var(--accent-light);}
+.lock-label{width:100%;padding:.7rem;background:rgba(112,128,144,.1);color:var(--accent);border:1px solid var(--border);border-radius:7px;font-size:.85rem;font-weight:500;text-align:center;}
+.lock-icon{position:absolute;top:1rem;right:1rem;font-size:1rem;opacity:.4;}
+/* SECTION DIVIDER */
+.section-label{font-size:.8rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Minted<span>Legacy</span></a>
+  <div class="nav-right">
+    <span class="nav-user" id="navUser"></span>
+    <a href="dashboard.html" class="btn-nav">My Dashboard</a>
+    <button class="btn-nav" onclick="logout()">Sign Out</button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="vault-header">
+    <h1>Download Vault</h1>
+    <p>All templates auto-populate with your profile details. Fill in any missing fields on your <a href="dashboard.html" style="color:var(--accent);">dashboard</a>.</p>
+  </div>
+
+  <div class="profile-banner" id="profileBanner">
+    <div class="profile-fields" id="profileFields">Loading profile...</div>
+    <a href="dashboard.html" class="btn-nav">Edit Profile →</a>
+  </div>
+
+  <div class="tier-notice">
+    <span>Your plan: <span class="tier-badge tier-starter" id="tierBadge">Starter</span> &nbsp;—&nbsp; <span id="tierMsg">5 of 16 assets unlocked</span></span>
+    <a href="index.html#pricing" class="btn-nav">Upgrade for more →</a>
+  </div>
+
+  <div id="vaultGrid"></div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://ajmvusgiepxmkgpkzvtd.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFqbXZ1c2dpZXB4bWtncGt6dnRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3MDIyNDMsImV4cCI6MjA5NDI3ODI0M30.YSCU_Oh5cWUa3LVUWfnnD23RfXsoG_Mxa-YVuR3_Rho';
+
+const TIER_LIMITS = { starter:5, builder:12, launch:16 };
+const TIER_LABELS = { starter:'Starter', builder:'Builder', launch:'Launch Ready' };
+const TIER_CLASSES = { starter:'tier-starter', builder:'tier-builder', launch:'tier-launch' };
+
+// All 16 vault assets
+const ASSETS = [
+  // STARTER (1-5)
+  { id:1, icon:'📄', title:'Coin Launch Checklist', desc:'Step-by-step pre-launch checklist personalized with your coin name and launch date.', tags:['Launch','Planning'], template: p => `COIN LAUNCH CHECKLIST
+==============================
+Coin: ${p('coin_name')} (${p('coin_ticker')})
+Owner: ${p('full_name')}
+Launch Date: ${p('launch_date')}
+Blockchain: ${p('blockchain')}
+Website: ${p('website_url')}
+
+PRE-LAUNCH CHECKLIST
+------------------------------
+[ ] Smart contract deployed and audited
+[ ] ${p('coin_name')} whitepaper published at ${p('website_url')}
+[ ] Logo and branding assets finalized
+[ ] Social media accounts created
+    - Twitter/X: ${p('twitter_handle')}
+    - Telegram: ${p('telegram_link')}
+    - Discord: ${p('discord_link')}
+[ ] Community building started
+[ ] CoinGecko listing submitted
+[ ] CoinMarketCap listing submitted
+[ ] Exchange listings pursued
+[ ] Press release distributed
+[ ] Launch announcement scheduled
+
+LAUNCH DAY
+------------------------------
+[ ] Announce on all channels
+[ ] Monitor contract activity
+[ ] Engage community in real time
+[ ] Track price and volume
+
+POST-LAUNCH
+------------------------------
+[ ] Weekly community updates
+[ ] Roadmap milestones published
+[ ] Partnerships pursued
+
+Prepared for: ${p('full_name')} | ${p('coin_name')} | ${new Date().toLocaleDateString()}` },
+
+  { id:2, icon:'🐦', title:'Social Media Bio Pack', desc:'Ready-to-use bios for Twitter/X, Telegram, and Discord — all pre-filled with your coin details.', tags:['Social','Branding'], template: p => `SOCIAL MEDIA BIO PACK — ${p('coin_name')} (${p('coin_ticker')})
+==============================
+
+TWITTER / X BIO (160 chars max)
+------------------------------
+Official account of ${p('coin_name')} (${p('coin_ticker')}) — ${p('coin_tagline')} | Built on ${p('blockchain')} | ${p('website_url')}
+
+TELEGRAM CHANNEL DESCRIPTION
+------------------------------
+Welcome to the official ${p('coin_name')} community!
+
+${p('coin_name')} (${p('coin_ticker')}) is a branded crypto currency built on ${p('blockchain')}.
+
+${p('coin_tagline')}
+
+🌐 Website: ${p('website_url')}
+🐦 Twitter: ${p('twitter_handle')}
+💬 Discord: ${p('discord_link')}
+
+DISCORD SERVER DESCRIPTION
+------------------------------
+The official home of the ${p('coin_name')} community. 
+
+Join us to follow the journey of ${p('coin_name')} (${p('coin_ticker')}) — ${p('coin_tagline')}
+
+Links: ${p('website_url')} | ${p('twitter_handle')}
+
+Prepared for: ${p('full_name')} | ${new Date().toLocaleDateString()}` },
+
+  { id:3, icon:'📣', title:'Launch Announcement Template', desc:'A press-ready announcement for your coin launch, pre-filled and ready to publish.', tags:['PR','Launch'], template: p => `FOR IMMEDIATE RELEASE
+
+${p('coin_name')} (${p('coin_ticker')}) Launches on ${p('blockchain')}
+
+${p('coin_tagline')}
+
+[CITY, DATE] — ${p('full_name')} today announced the official launch of ${p('coin_name')} (ticker: ${p('coin_ticker')}), a new branded crypto currency built on the ${p('blockchain')} blockchain.
+
+With a total supply of ${p('total_supply')} tokens, ${p('coin_name')} is designed to [describe your vision here].
+
+"${p('coin_tagline')}" said ${p('full_name')}, founder of ${p('coin_name')}.
+
+${p('coin_name')} is now available and can be found at:
+Website: ${p('website_url')}
+Twitter/X: ${p('twitter_handle')}
+Telegram: ${p('telegram_link')}
+Discord: ${p('discord_link')}
+Contract / Wallet: ${p('wallet_address')}
+
+About ${p('coin_name')}
+${p('coin_name')} (${p('coin_ticker')}) is a branded crypto currency on ${p('blockchain')} with a total supply of ${p('total_supply')}. Learn more at ${p('website_url')}.
+
+Media Contact:
+${p('full_name')}
+${p('email')}
+${p('website_url')}` },
+
+  { id:4, icon:'🎨', title:'Brand Style Guide Template', desc:'A brand guideline document pre-filled with your coin name, ticker, and contact details.', tags:['Branding','Design'], template: p => `BRAND STYLE GUIDE
+${p('coin_name')} (${p('coin_ticker')})
+==============================
+
+BRAND OVERVIEW
+------------------------------
+Name: ${p('coin_name')}
+Ticker: ${p('coin_ticker')}
+Tagline: ${p('coin_tagline')}
+Blockchain: ${p('blockchain')}
+Website: ${p('website_url')}
+Owner: ${p('full_name')}
+
+LOGO USAGE
+------------------------------
+[ ] Primary logo — full color on dark background
+[ ] Secondary logo — white on dark
+[ ] Icon only — for social media avatars
+[ ] Minimum size: 32px height
+
+Always maintain clear space around the logo equal to the height of the coin ticker symbol.
+
+Never stretch, rotate, or recolor the logo outside brand guidelines.
+
+COLORS
+------------------------------
+Primary:   [Define your primary brand color]
+Secondary: [Define your secondary brand color]
+Accent:    [Define your accent color]
+Background: [Define your background color]
+
+TYPOGRAPHY
+------------------------------
+Heading Font:  [Define your heading font]
+Body Font:     [Define your body font]
+
+TONE OF VOICE
+------------------------------
+${p('coin_name')} speaks with confidence, clarity, and community focus.
+Avoid: hype language, unrealistic promises, financial advice.
+Use: empowering language, transparency, community-first messaging.
+
+SOCIAL HANDLES
+------------------------------
+Twitter/X: ${p('twitter_handle')}
+Telegram:  ${p('telegram_link')}
+Discord:   ${p('discord_link')}
+
+Prepared for: ${p('full_name')} | ${p('coin_name')} | ${new Date().toLocaleDateString()}` },
+
+  { id:5, icon:'❓', title:'Community FAQ Template', desc:'A ready-made FAQ document for your coin community, pre-filled with your details.', tags:['Community','Docs'], template: p => `${p('coin_name')} (${p('coin_ticker')}) — COMMUNITY FAQ
+==============================
+
+Q: What is ${p('coin_name')}?
+A: ${p('coin_name')} (${p('coin_ticker')}) is a branded crypto currency built on the ${p('blockchain')} blockchain. ${p('coin_tagline')}
+
+Q: What is the total supply of ${p('coin_ticker')}?
+A: The total supply of ${p('coin_name')} is ${p('total_supply')} tokens.
+
+Q: When did ${p('coin_name')} launch?
+A: ${p('coin_name')} launched on ${p('launch_date')}.
+
+Q: Where can I buy ${p('coin_ticker')}?
+A: Visit ${p('website_url')} for the latest exchange and DEX listings.
+
+Q: Where can I find the official contract address?
+A: The official wallet/contract address is: ${p('wallet_address')}
+   Always verify on ${p('website_url')} before transacting.
+
+Q: How do I join the community?
+A: Join us here:
+   Twitter/X: ${p('twitter_handle')}
+   Telegram: ${p('telegram_link')}
+   Discord: ${p('discord_link')}
+
+Q: Who is behind ${p('coin_name')}?
+A: ${p('coin_name')} was founded by ${p('full_name')}. Learn more at ${p('website_url')}.
+
+Q: Is ${p('coin_name')} a financial investment?
+A: ${p('coin_name')} is a branded crypto currency for community and utility purposes. Nothing here constitutes financial advice. Always do your own research.
+
+Prepared for: ${p('full_name')} | ${new Date().toLocaleDateString()}` },
+
+  // BUILDER (6-12)
+  { id:6, icon:'📋', title:'Whitepaper Template', desc:'A full structured whitepaper template pre-filled with all your coin details.', tags:['Docs','Legal'], template: p => `${p('coin_name')} WHITEPAPER v1.0
+${p('coin_tagline')}
+==============================
+
+ABSTRACT
+${p('coin_name')} (${p('coin_ticker')}) is a branded crypto currency deployed on the ${p('blockchain')} blockchain with a total supply of ${p('total_supply')} tokens. This document outlines the vision, tokenomics, and roadmap for ${p('coin_name')}.
+
+1. INTRODUCTION
+${p('coin_name')} was created by ${p('full_name')} with a mission to [describe your mission]. Built on ${p('blockchain')}, ${p('coin_name')} leverages blockchain technology to [describe your use case].
+
+2. TOKENOMICS
+Token Name: ${p('coin_name')}
+Ticker: ${p('coin_ticker')}
+Blockchain: ${p('blockchain')}
+Total Supply: ${p('total_supply')}
+Contract Address: ${p('wallet_address')}
+Launch Date: ${p('launch_date')}
+
+Distribution:
+[ ] Community & Ecosystem: [X]%
+[ ] Founder & Team: [X]%
+[ ] Marketing & Partnerships: [X]%
+[ ] Reserve: [X]%
+
+3. TECHNOLOGY
+${p('coin_name')} is built on ${p('blockchain')}, leveraging [smart contract standards] for security, transparency, and decentralization.
+
+4. ROADMAP
+Phase 1 — Launch: Token deployment, community building, initial listings
+Phase 2 — Growth: Exchange listings, partnerships, marketing expansion
+Phase 3 — Ecosystem: [Define your long-term vision]
+
+5. TEAM
+Founder: ${p('full_name')}
+Contact: ${p('email')}
+Website: ${p('website_url')}
+
+6. COMMUNITY
+Twitter/X: ${p('twitter_handle')}
+Telegram: ${p('telegram_link')}
+Discord: ${p('discord_link')}
+
+7. DISCLAIMER
+This whitepaper is for informational purposes only and does not constitute financial or investment advice. Cryptocurrency involves risk. Always conduct your own research.
+
+© ${new Date().getFullYear()} ${p('full_name')} / ${p('coin_name')}` },
+
+  { id:7, icon:'⚖️', title:'Terms & Conditions Template', desc:'Legal T&C document for your coin website, pre-filled with your project details.', tags:['Legal'], template: p => `TERMS AND CONDITIONS — ${p('coin_name')}
+Last updated: ${new Date().toLocaleDateString()}
+Website: ${p('website_url')}
+==============================
+
+1. ACCEPTANCE
+By accessing ${p('website_url')} and interacting with ${p('coin_name')} (${p('coin_ticker')}), you agree to these Terms and Conditions.
+
+2. NO FINANCIAL ADVICE
+Nothing on this website or associated with ${p('coin_name')} constitutes financial, investment, or legal advice. ${p('coin_name')} is a branded crypto currency. Always conduct your own research and consult qualified professionals.
+
+3. RISK DISCLOSURE
+Cryptocurrency involves significant financial risk. The value of ${p('coin_ticker')} may go up or down. You may lose some or all of your investment. ${p('full_name')} and the ${p('coin_name')} team are not liable for any financial losses.
+
+4. INTELLECTUAL PROPERTY
+All branding, content, and materials associated with ${p('coin_name')} are the property of ${p('full_name')} unless otherwise stated.
+
+5. COMMUNITY CONDUCT
+Members of the ${p('coin_name')} community on Telegram (${p('telegram_link')}), Discord (${p('discord_link')}), and Twitter/X (${p('twitter_handle')}) are expected to engage respectfully and lawfully.
+
+6. CONTACT
+${p('full_name')}
+${p('email')}
+${p('website_url')}
+
+© ${new Date().getFullYear()} ${p('full_name')} / ${p('coin_name')}. All rights reserved.` },
+
+  { id:8, icon:'🗺️', title:'Roadmap Slide Template', desc:'A structured roadmap document for your coin, pre-filled with your project name.', tags:['Planning','Docs'], template: p => `${p('coin_name')} (${p('coin_ticker')}) — OFFICIAL ROADMAP
+${p('coin_tagline')}
+Website: ${p('website_url')}
+==============================
+
+PHASE 1 — FOUNDATION (Launch)
+------------------------------
+✅ Token creation and deployment on ${p('blockchain')}
+✅ Brand identity and logo finalized
+✅ Website launched at ${p('website_url')}
+✅ Whitepaper published
+✅ Social channels launched
+   Twitter/X: ${p('twitter_handle')}
+   Telegram: ${p('telegram_link')}
+   Discord: ${p('discord_link')}
+🔲 CoinGecko listing
+🔲 CoinMarketCap listing
+
+PHASE 2 — GROWTH
+------------------------------
+🔲 First 1,000 community members
+🔲 First DEX listing
+🔲 Marketing campaign launch
+🔲 Influencer partnerships
+🔲 First CEX listing application
+
+PHASE 3 — EXPANSION
+------------------------------
+🔲 [Define your milestone]
+🔲 [Define your milestone]
+🔲 [Define your milestone]
+
+PHASE 4 — ECOSYSTEM
+------------------------------
+🔲 [Define your long-term vision]
+🔲 [Define your long-term vision]
+
+Prepared for: ${p('full_name')} | ${p('coin_name')} | ${new Date().toLocaleDateString()}` },
+
+  { id:9, icon:'📊', title:'Tokenomics One-Pager', desc:'A clean tokenomics summary sheet pre-filled with your supply and coin details.', tags:['Finance','Docs'], template: p => `${p('coin_name')} (${p('coin_ticker')}) — TOKENOMICS SUMMARY
+==============================
+
+TOKEN DETAILS
+------------------------------
+Name:            ${p('coin_name')}
+Ticker:          ${p('coin_ticker')}
+Blockchain:      ${p('blockchain')}
+Total Supply:    ${p('total_supply')}
+Launch Date:     ${p('launch_date')}
+Contract:        ${p('wallet_address')}
+
+DISTRIBUTION (Fill in your percentages)
+------------------------------
+Community & Ecosystem:    [  ]%
+Founders & Team:          [  ]%
+Marketing & Growth:       [  ]%
+Liquidity Pool:           [  ]%
+Reserve Fund:             [  ]%
+                         --------
+Total:                   100%
+
+TAX / FEE STRUCTURE
+------------------------------
+Buy Tax:   [  ]%
+Sell Tax:  [  ]%
+Transfer:  [  ]%
+
+USE OF FUNDS
+------------------------------
+Marketing:        [  ]%
+Development:      [  ]%
+Operations:       [  ]%
+Reserve:          [  ]%
+
+WHERE TO BUY
+------------------------------
+Website:   ${p('website_url')}
+Twitter:   ${p('twitter_handle')}
+Telegram:  ${p('telegram_link')}
+
+Prepared for: ${p('full_name')} | ${new Date().toLocaleDateString()}` },
+
+  { id:10, icon:'📰', title:'Press Release Template', desc:'A formatted press release for your coin launch or major milestone.', tags:['PR','Launch'], template: p => `PRESS RELEASE
+
+FOR IMMEDIATE RELEASE
+
+${p('coin_name')} Announces [YOUR MILESTONE] on ${p('blockchain')}
+
+${p('coin_tagline')}
+
+[City, ${new Date().toLocaleDateString()}] — ${p('full_name')}, founder of ${p('coin_name')} (${p('coin_ticker')}), today announced [describe your milestone or news].
+
+"[Insert your quote here]," said ${p('full_name')}, founder of ${p('coin_name')}.
+
+About ${p('coin_name')}
+${p('coin_name')} (${p('coin_ticker')}) is a branded crypto currency built on ${p('blockchain')} with a total supply of ${p('total_supply')} tokens. ${p('coin_tagline')}. Learn more at ${p('website_url')}.
+
+Community Links
+Website:   ${p('website_url')}
+Twitter:   ${p('twitter_handle')}
+Telegram:  ${p('telegram_link')}
+Discord:   ${p('discord_link')}
+
+Media Contact
+${p('full_name')}
+${p('email')}
+${p('website_url')}
+
+###` },
+
+  { id:11, icon:'🤝', title:'Partnership Proposal Template', desc:'A professional partnership outreach document pre-filled with your coin details.', tags:['Business','Outreach'], template: p => `PARTNERSHIP PROPOSAL
+
+From: ${p('full_name')}, Founder of ${p('coin_name')} (${p('coin_ticker')})
+Email: ${p('email')}
+Website: ${p('website_url')}
+Date: ${new Date().toLocaleDateString()}
+
+TO: [Partner Name / Organization]
+
+SUBJECT: Partnership Opportunity — ${p('coin_name')} (${p('coin_ticker')})
+
+Dear [Partner Name],
+
+I am reaching out on behalf of ${p('coin_name')} (${p('coin_ticker')}), a branded crypto currency built on ${p('blockchain')}. ${p('coin_tagline')}.
+
+WHY PARTNER WITH US
+• Growing community across Twitter, Telegram, and Discord
+• Total supply: ${p('total_supply')} ${p('coin_ticker')} tokens
+• Launched: ${p('launch_date')}
+• Website: ${p('website_url')}
+
+WHAT WE PROPOSE
+[Describe your partnership offer — co-marketing, liquidity, cross-promotion, etc.]
+
+ABOUT ${p('coin_name')}
+${p('coin_name')} is building [describe your vision]. Our community can be found at:
+Twitter: ${p('twitter_handle')}
+Telegram: ${p('telegram_link')}
+Discord: ${p('discord_link')}
+
+I look forward to exploring this opportunity together.
+
+Warm regards,
+${p('full_name')}
+Founder, ${p('coin_name')}
+${p('email')}
+${p('website_url')}` },
+
+  { id:12, icon:'📬', title:'Exchange Listing Application Template', desc:'Pre-filled exchange listing application for CoinGecko, CMC, and DEX submissions.', tags:['Exchange','Launch'], template: p => `EXCHANGE LISTING APPLICATION
+${p('coin_name')} (${p('coin_ticker')})
+==============================
+
+PROJECT NAME:        ${p('coin_name')}
+TICKER SYMBOL:       ${p('coin_ticker')}
+BLOCKCHAIN:          ${p('blockchain')}
+CONTRACT ADDRESS:    ${p('wallet_address')}
+TOTAL SUPPLY:        ${p('total_supply')}
+LAUNCH DATE:         ${p('launch_date')}
+
+WEBSITE:             ${p('website_url')}
+WHITEPAPER:          ${p('website_url')}/whitepaper
+TWITTER/X:           ${p('twitter_handle')}
+TELEGRAM:            ${p('telegram_link')}
+DISCORD:             ${p('discord_link')}
+
+PROJECT DESCRIPTION:
+${p('coin_name')} (${p('coin_ticker')}) is a branded crypto currency built on ${p('blockchain')}. ${p('coin_tagline')}. Total supply is ${p('total_supply')} tokens.
+
+CONTACT:
+Name:   ${p('full_name')}
+Email:  ${p('email')}
+
+[Attach: Logo PNG, Contract ABI, Audit Report if available]
+
+Prepared: ${new Date().toLocaleDateString()}` },
+
+  // LAUNCH READY (13-16)
+  { id:13, icon:'📱', title:'Influencer Outreach Kit', desc:'Email/DM templates for reaching out to crypto influencers on your behalf.', tags:['Marketing','Outreach'], template: p => `INFLUENCER OUTREACH KIT — ${p('coin_name')} (${p('coin_ticker')})
+Prepared for: ${p('full_name')} | ${new Date().toLocaleDateString()}
+==============================
+
+EMAIL TEMPLATE — INITIAL OUTREACH
+------------------------------
+Subject: Collaboration Opportunity — ${p('coin_name')} (${p('coin_ticker')})
+
+Hi [Influencer Name],
+
+I'm ${p('full_name')}, founder of ${p('coin_name')} (${p('coin_ticker')}) — ${p('coin_tagline')}.
+
+We're a branded crypto currency on ${p('blockchain')} with [X] community members and growing fast.
+
+I'd love to explore a collaboration. We can offer:
+• [Sponsored post / Review / Giveaway / AMA]
+• [Compensation details]
+
+Check us out: ${p('website_url')}
+Twitter: ${p('twitter_handle')}
+Telegram: ${p('telegram_link')}
+
+Would love to chat. What works for you?
+
+Best,
+${p('full_name')}
+${p('email')}
+
+------------------------------
+DM TEMPLATE (Twitter/X — short)
+------------------------------
+Hey! I'm the founder of ${p('coin_name')} (${p('coin_ticker')}) — ${p('coin_tagline')}. Built on ${p('blockchain')}. Would love to explore a collab. DM me or check ${p('website_url')} 🚀
+
+------------------------------
+TELEGRAM SHORT PITCH
+------------------------------
+Hi [Name]! I'm ${p('full_name')}, founder of ${p('coin_name')} ($${p('coin_ticker')}). ${p('coin_tagline')}. Looking for crypto influencers for a paid collab. More info: ${p('website_url')}` },
+
+  { id:14, icon:'🔒', title:'Privacy Policy Template', desc:'A privacy policy for your coin website, pre-filled with your contact details.', tags:['Legal'], template: p => `PRIVACY POLICY — ${p('coin_name')}
+Website: ${p('website_url')}
+Last Updated: ${new Date().toLocaleDateString()}
+==============================
+
+1. INTRODUCTION
+${p('full_name')} ("we", "us", "our") operates ${p('website_url')} (the "Site"). This policy explains how we handle your information.
+
+2. INFORMATION WE COLLECT
+We may collect: name, email address, wallet address, and usage data when you interact with our Site or community channels.
+
+3. HOW WE USE YOUR INFORMATION
+• To communicate updates about ${p('coin_name')} (${p('coin_ticker')})
+• To improve our website and community
+• To comply with legal obligations
+
+4. SHARING YOUR INFORMATION
+We do not sell, trade, or share your personal information with third parties except as required by law.
+
+5. BLOCKCHAIN DATA
+Transactions on the ${p('blockchain')} blockchain are public by nature. Your wallet address (${p('wallet_address')}) and transaction history may be publicly visible.
+
+6. COOKIES
+Our website may use cookies to improve your experience. You may disable cookies in your browser settings.
+
+7. YOUR RIGHTS
+You may request access to, correction of, or deletion of your personal data by contacting us.
+
+8. CONTACT
+${p('full_name')}
+${p('email')}
+${p('website_url')}
+
+© ${new Date().getFullYear()} ${p('full_name')} / ${p('coin_name')}. All rights reserved.` },
+
+  { id:15, icon:'🏆', title:'Airdrop Campaign Template', desc:'A complete airdrop campaign structure pre-filled with your coin and social details.', tags:['Marketing','Community'], template: p => `${p('coin_name')} (${p('coin_ticker')}) — AIRDROP CAMPAIGN
+==============================
+Prepared for: ${p('full_name')} | ${new Date().toLocaleDateString()}
+
+CAMPAIGN OVERVIEW
+------------------------------
+Token: ${p('coin_name')} (${p('coin_ticker')})
+Blockchain: ${p('blockchain')}
+Airdrop Amount: [X] ${p('coin_ticker')} per participant
+Total Airdrop Pool: [X] ${p('coin_ticker')}
+Campaign Duration: [Start Date] to [End Date]
+
+HOW TO PARTICIPATE
+------------------------------
+Step 1: Follow ${p('twitter_handle')} on Twitter/X
+Step 2: Join our Telegram: ${p('telegram_link')}
+Step 3: Join our Discord: ${p('discord_link')}
+Step 4: Submit your ${p('blockchain')} wallet address at ${p('website_url')}
+Step 5: Like and retweet our pinned announcement
+
+ELIGIBILITY
+------------------------------
+• Must complete all steps above
+• One entry per wallet address
+• Must not be a resident of a restricted jurisdiction
+
+DISTRIBUTION
+------------------------------
+Airdrop tokens will be distributed to ${p('wallet_address')} [or specify smart contract] within [X] days of campaign end.
+
+ANNOUNCEMENT COPY (for social media)
+------------------------------
+🚀 ${p('coin_name')} ($${p('coin_ticker')}) AIRDROP IS LIVE!
+
+${p('coin_tagline')}
+
+To enter:
+✅ Follow ${p('twitter_handle')}
+✅ Join ${p('telegram_link')}
+✅ Submit your wallet at ${p('website_url')}
+
+[X] ${p('coin_ticker')} up for grabs! Built on ${p('blockchain')} 🔥` },
+
+  { id:16, icon:'📈', title:'Investor One-Pager', desc:'A professional investor summary sheet for your coin, fully pre-populated.', tags:['Finance','Business'], template: p => `${p('coin_name')} (${p('coin_ticker')}) — INVESTOR ONE-PAGER
+${p('coin_tagline')}
+==============================
+Prepared by: ${p('full_name')} | ${p('email')} | ${new Date().toLocaleDateString()}
+
+THE OPPORTUNITY
+${p('coin_name')} (${p('coin_ticker')}) is a branded crypto currency on ${p('blockchain')} positioned to [describe your market opportunity].
+
+TOKEN SNAPSHOT
+------------------------------
+Name:           ${p('coin_name')}
+Ticker:         ${p('coin_ticker')}
+Blockchain:     ${p('blockchain')}
+Total Supply:   ${p('total_supply')}
+Launch Date:    ${p('launch_date')}
+Contract:       ${p('wallet_address')}
+
+TRACTION
+------------------------------
+• Community: [X] members across Telegram, Discord, Twitter
+• Website: ${p('website_url')}
+• Twitter: ${p('twitter_handle')}
+• Telegram: ${p('telegram_link')}
+
+USE OF FUNDS
+------------------------------
+Marketing & Growth:   [  ]%
+Development:          [  ]%
+Liquidity:            [  ]%
+Operations:           [  ]%
+
+ROADMAP HIGHLIGHTS
+------------------------------
+Q[X] ${new Date().getFullYear()}: [Milestone 1]
+Q[X] ${new Date().getFullYear()}: [Milestone 2]
+Q[X] ${new Date().getFullYear()+1}: [Milestone 3]
+
+TEAM
+------------------------------
+${p('full_name')}, Founder
+${p('email')}
+
+DISCLAIMER
+This document is for informational purposes only and does not constitute financial or investment advice. Cryptocurrency involves significant risk.` }
+];
+
+// ---- RUNTIME ----
+const SUPABASE_URL_V = SUPABASE_URL;
+let profile = {};
+let userTier = 'starter';
+let currentUser = null;
+let currentToken = null;
+
+function p(field){
+  const val = profile[field];
+  return (val && val.toString().trim()) ? val : `[${field.replace(/_/g,' ')}]`;
+}
+
+async function init(){
+  const token = localStorage.getItem('ml_token');
+  const user = JSON.parse(localStorage.getItem('ml_user') || 'null');
+  if(!token || !user){ window.location.href = 'login.html'; return; }
+  currentToken = token;
+  currentUser = user;
+  document.getElementById('navUser').textContent = user.username || user.email;
+  await loadProfile();
+  renderVault();
+}
+
+async function loadProfile(){
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/profiles?id=eq.${currentUser.id}&select=*`, {
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+currentToken}
+    });
+    const data = await res.json();
+    if(data && data[0]){
+      profile = data[0];
+      userTier = profile.tier || 'starter';
+    }
+  } catch(e){ console.error(e); }
+  renderProfileBanner();
+  renderTierNotice();
+}
+
+function renderProfileBanner(){
+  const fields = document.getElementById('profileFields');
+  const show = [
+    ['full_name','Name'],['coin_name','Coin'],['coin_ticker','Ticker'],['blockchain','Chain'],['website_url','Site']
+  ];
+  fields.innerHTML = show.map(([key,label])=>{
+    const val = profile[key];
+    return `<span class="pf"><strong>${label}:</strong> ${val ? val : '<span class="pf-empty">not set</span>'}</span>`;
+  }).join('');
+}
+
+function renderTierNotice(){
+  const limit = TIER_LIMITS[userTier] || 5;
+  const badge = document.getElementById('tierBadge');
+  badge.textContent = TIER_LABELS[userTier] || 'Starter';
+  badge.className = 'tier-badge ' + (TIER_CLASSES[userTier] || 'tier-starter');
+  document.getElementById('tierMsg').textContent = `${limit} of 16 assets unlocked`;
+}
+
+function renderVault(){
+  const limit = TIER_LIMITS[userTier] || 5;
+  const grid = document.getElementById('vaultGrid');
+
+  const sections = [
+    { label:'Starter — Assets 1–5', range:[1,5] },
+    { label:'Builder — Assets 6–12', range:[6,12] },
+    { label:'Launch Ready — Assets 13–16', range:[13,16] }
+  ];
+
+  let html = '';
+  sections.forEach(sec => {
+    html += `<div class="section-label">${sec.label}</div><div class="vault-grid">`;
+    ASSETS.filter(a => a.id >= sec.range[0] && a.id <= sec.range[1]).forEach(asset => {
+      const unlocked = asset.id <= limit;
+      html += `<div class="asset-card ${unlocked ? '' : 'locked'}">
+        ${!unlocked ? '<span class="lock-icon">🔒</span>' : ''}
+        <div class="asset-icon">${asset.icon}</div>
+        <div class="asset-title">${asset.title}</div>
+        <div class="asset-desc">${asset.desc}</div>
+        <div class="asset-tags">${asset.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        ${unlocked
+          ? `<button class="btn-download" onclick="download(${asset.id})">⬇ Download</button>`
+          : `<div class="lock-label">Upgrade to unlock</div>`}
+      </div>`;
+    });
+    html += '</div>';
+  });
+  grid.innerHTML = html;
+}
+
+function download(id){
+  const asset = ASSETS.find(a => a.id === id);
+  if(!asset) return;
+  const content = asset.template(p);
+  const blob = new Blob([content], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${(profile.coin_name || 'MintedLegacy').replace(/\s+/g,'_')}_${asset.title.replace(/\s+/g,'_')}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function logout(){
+  localStorage.removeItem('ml_token');
+  localStorage.removeItem('ml_refresh');
+  localStorage.removeItem('ml_user');
+  window.location.href = 'login.html';
+}
+
+init();
+</script>
+</body>
+</html>
